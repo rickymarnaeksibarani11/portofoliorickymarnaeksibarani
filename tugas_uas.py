@@ -1,3 +1,5 @@
+import os
+import time
 #program kasir RICKY ATK STORE
 """FITUR: 1. TOTAL BAYAR (JUMLAH TAGIHAN)
           2. JENIS KAMAR YANG DIPESAN
@@ -70,8 +72,9 @@ def kamar():
     
 kamar()
 
-total2=0
-jenis2=""
+total2=[]
+jenis2=[]
+gelas2=[]
 
 def fungsiminuman():
     global total2
@@ -85,53 +88,66 @@ def fungsiminuman():
     print("4. COFFEE ESSPRESO GAYO             - Rp15000")
     print("5. TIDAK MEMESAN COFFEE             - Rp 0")
     nomor=int(input("MASUKKAN PILIHAN MINUMAN: "))
-    gelas= int(input("Berapa Gelas: "))
+    gelasminuman= int(input("Berapa Gelas: "))
+    gelas2.append(gelasminuman)
 
     if nomor==1:
-        total2=gelas*10000
-        print(gelas," COFFE MILK WITH BROWN SUGAR Rp.", total2)
-        jenis2=("COFFEE MILK WITH BROWN SUGAR")
+        totalminuman=gelasminuman*10000
+        jenisminuman=("COFFEE MILK WITH BROWN SUGAR")
+        total2.append(totalminuman)
+        jenis2.append(jenisminuman)
     elif nomor==2:
-        total2=gelas*13000
-        print(gelas," COFFEE MILK WITH MACCHA Rp.", total2)
-        jenis2=("COFFEE MILK WITH MACCHA")
+        totalminuman=gelasminuman*13000
+        jenisminuman=("COFFEE MILK WITH MACCHA")
+        total2.append(totalminuman)
+        jenis2.append(jenisminuman)
     elif nomor==3:
-        total2=gelas*20000
-        print(gelas," COFFE MUR SPESIAL Rp.", total2)
-        jenis2=("COFFE MUR SPESIAL")
+        totalminuman=gelasminuman*20000
+        jenisminuman=("COFFE MUR SPESIAL")
+        total2.append(totalminuman)
+        jenis2.append(jenisminuman)
     elif nomor==4:
-        total2=gelas*15000
-        print(gelas," COFFEE ESSPRESO GAYO Rp.", total2)
-        jenis2=("COFFEE ESSPRESO GAYO")
+        totalminuman=gelasminuman*15000
+        jenisminuman=("COFFEE ESSPRESO GAYO")
+        total2.append(totalminuman)
+        jenis2.append(jenisminuman)
     elif nomor==5:
-        total2=gelas*0
-        print(gelas," TIDAK MEMESAN COFFEE Rp.", total2)
-        jenis2=("TIDAK MEMESAN COFFEE")
+        totalminuman=gelas*0
+        jenisminuman=("TIDAK MEMESAN COFFEE")
+        total2.append(totalminuman)
+        jenis2.append(jenisminuman)
     else:
         print("Pilihan menu tidak ada!!")
         fungsiminuman()
-    
-fungsiminuman()
-
-totalsemua=0
-totalsemua=total1+total2
-print("\nTotal harus Dibayar: Rp.", totalsemua)
-uang=int(input("Uang Tunai Pembeli: Rp."))
-kembalian=int(uang-totalsemua)
-print("Kembalian : ",kembalian)
-print("\n")
-print("------------------------------------------------")
-print("                                                ")
-print("^^^^^^^^^^^^^^^^^^ STRUK BOOKING ^^^^^^^^^^^^^^^")
-print("                                  ")
-print("Nama: ",pemesan)
-print("Booking: ",menginap,jenis1,"-",total1)
-print("  ",gelas,jenis2,"-",total2)
-print("Tagihan:Rp. ",totalsemua)
-print("Uang:Rp. ",uang)
-print("Kembalian:Rp. ",kembalian)
-print("~~~~~~ THANKYOU ",pemesan, "FOR YOUR ORDER ~~~~~")
-print("                                                ")
-print("------------------------------------------------")
-
-
+ 
+while True: 
+    fungsiminuman()
+    pilih = input("Ingin tambah pesanan(y/t)? ")
+    if pilih == "t":
+        os.system('cls')
+        for i in range(len(total2)):
+            print(str(gelas2[i])+" "+str(jenis2[i])+" Rp."+str(total2[i]))
+        totalsemua=total1+(sum(total2))
+        print("\nTotal harus Dibayar: Rp.", totalsemua)
+        uang=int(input("Uang Tunai Pembeli: Rp."))
+        kembalian=int(uang-totalsemua)
+        print("Kembalian : ",kembalian)
+        time.sleep(3)
+        os.system('cls')
+        print("------------------------------------------------")
+        print("                                                ")
+        print("^^^^^^^^^^^^^^^^^^ STRUK BOOKING ^^^^^^^^^^^^^^^")
+        print("                                  ")
+        print("Nama: ",pemesan)
+        print("Booking: ",menginap,jenis1,"-",total1)
+        for i in range(len(total2)):
+            print(str(gelas2[i])+" "+str(jenis2[i])+" Rp."+str(total2[i]))
+        print("Tagihan:Rp. ",totalsemua)
+        print("Uang:Rp. ",uang)
+        print("Kembalian:Rp. ",kembalian)
+        print("~~~~~~ THANKYOU ",pemesan, "FOR YOUR ORDER ~~~~~")
+        print("                                                ")
+        print("------------------------------------------------")
+        break
+    elif pilih != "y" or pilih != "t":
+        print("Pilihan tidak ditemukan!")
